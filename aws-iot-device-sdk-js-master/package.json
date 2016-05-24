@@ -1,0 +1,51 @@
+{
+  "name": "aws-iot-device-sdk",
+  "description": "AWS IoT JavaScript SDK for Embedded Devices",
+  "version": "1.0.7",
+  "author": {
+    "name": "Amazon Web Services",
+    "email": "",
+    "url": "http://aws.amazon.com"
+  },
+  "homepage": "https://github.com/aws/aws-iot-device-sdk-js",
+  "contributors": [
+    "Gary Wicker <gkwicker@amazon.com>",
+    "Frank Lovecchio <flovec@amazon.com>"
+  ],
+  "main": "index.js",
+  "engines": {
+    "node": ">=0.8.6"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/aws/aws-iot-device-sdk-js"
+  },
+  "bugs": {
+    "url": "http://github.com/aws/aws-iot-device-sdk-js/issues",
+    "mail": "IotDeviceSDKSupport@amazon.com"
+  },
+  "license": "Apache-2.0",
+  "keywords": [
+    "api",
+    "amazon",
+    "aws",
+    "iot",
+    "mqtt"
+  ],
+  "dependencies": {
+    "minimist": "1.2.0",
+    "mqtt": "^1.4.3"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-concat": "^2.6.0",
+    "gulp-jscs": "^1.6.0",
+    "gulp-jshint": "^1.11.1",
+    "gulp-mocha": "^2.1.2",
+    "jshint-stylish": "^2.0.1"
+  },
+  "scripts": {
+    "postinstall": "node ./node_modules/gulp/bin/gulp.js --verbose",
+    "test": "node ./node_modules/gulp/bin/gulp.js --verbose"
+  }
+}

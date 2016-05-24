@@ -1,0 +1,23 @@
+#install pip download get-pip.py python get-pip.py
+#install boto  python -m install boto
+#Can't use bucket names with dots #2836
+#https://github.com/boto/boto/issues/2836
+#Note: setting the following configuration solves the issue for me:
+"""
+.boto
+[s3]
+calling_format = boto.s3.connection.OrdinaryCallingFormat
+"""
+"""
+if '.' in bucketName:
+    conn = S3Connection(awsAccessKeyID, awsSecretKey, calling_format=OrdinaryCallingFormat())
+else:
+    conn = S3Connection(awsAccessKeyID, awsSecretKey)
+
+conn = boto.s3.connect_to_region(
+    region,aws_access_key_id=awsAccessKeyID,
+    aws_secret_access_key=awsSecretKey,
+    calling_format=OrdinaryCallingFormat()
+    )
+
+"""

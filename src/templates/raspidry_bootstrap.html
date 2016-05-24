@@ -1,0 +1,422 @@
+﻿<!DOCTYPE html>
+<html>
+	<!-- FuelUX attribute -->
+	<head>
+		<meta charset="utf-8">
+		<title>RasPiDry</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Bootstrap -->
+		<link type="text/css" href="static/external/bootstrap-3.0.3/css/bootstrap.min.css" rel="stylesheet">
+		<link type="text/css" href="static/external/css-toggle-switch/toggle-switch.css" rel="stylesheet">
+		<link type="text/css" href="static/raspidry_bootstrap.css" rel="stylesheet">
+
+		<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+		<!--[if lt IE 9]>
+		<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+		<script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+		<![endif]-->
+	</head>
+	<body>
+
+		<div class="container">
+
+			<div class="page-header">
+				<h1>RasPiDry</h1>
+			</div>
+
+			<div class="row">
+				<div class="col-xs-5">
+					<table id="dataTable" class="table table-bordered table-condensed table-responsive style="border-collapse:collapse;"">
+						<thead>
+							<tr>
+								<th class="col-xs-4">Vessel</th>
+								<th class="col-xs-4">Temp</th>
+								<th class="col-xs-4">Heat Output</th>
+
+							</tr>
+						</thead>
+						<tbody>
+							<tr id="firstRow" data-toggle="collapse" data-target="#extra_data_info1" class="selectRow row-highlight accordion-toggle">
+								<td align="center"><h5>vessel1</h5></td>
+								<td align="center"><h5><span id="tempResponse">60</span><span id="tempResponseUnits">&degF</span></h5></td>
+								<td align="center"><h5><span id="dutycycleResponse">0</span><span id="dutyCycleUnits"> </span></h5></td>
+							</tr>
+							<tr>
+								<td colspan="3" class="hiddenRow" id="vessel1">
+								<div class="accordian-body collapse" id="extra_data_info1">
+
+									<div class="voffset15"></div>
+									Mode:<span id="modeResponse" class="label label-default"></span>
+									<br>
+									Cycle Time(sec): <span id="cycletimeResponse" class="label label-default"></span>
+									<br>
+									Set Point(<span id="setpointResponseUnits"></span>): <span id="setpointResponse" class="label label-default"></span>
+									<br>
+									Kc:<span id="k_paramResponse" class="label label-default"></span>
+									Ti:<span id="i_paramResponse" class="label label-default"></span>
+									Td:<span id="d_paramResponse" class="label label-default"></span>
+
+									<div class="voffset15"></div>
+
+								</div></td>
+							</tr>
+							<tr id="secondRow" data-toggle="collapse" data-target="#extra_data_info2" class="selectRow accordion-toggle">
+								<td align="center"><h5>vessel2</h5></td>
+								<td align="center"><h5><span id="tempResponse2"></span><span id="tempResponseUnits2"> </span></h5></td>
+								<td align="center"><h5><span id="dutycycleResponse2"></span><span id="dutyCycleUnits2"> </span></h5></td>
+							</tr>
+							<tr>
+								<td colspan="3" class="hiddenRow" id="vessel2">
+								<div class="accordian-body collapse" id="extra_data_info2">
+
+									<div class="voffset15"></div>
+
+									Mode:<span id="modeResponse2" class="label label-default"></span>
+									<br>
+									Cycle Time(sec): <span id="cycletimeResponse2" class="label label-default"></span>
+									<br>
+									Set Point(<span id="setpointResponseUnits2"></span>): <span id="setpointResponse2" class="label label-default"></span>
+									<br>
+									Kc:<span id="k_paramResponse2" class="label label-default"></span>
+									Ti:<span id="i_paramResponse2" class="label label-default"></span>
+									Td:<span id="d_paramResponse2" class="label label-default"></span>
+									
+									<div class="voffset15"></div>
+
+								</div></td>
+							</tr>
+							<tr id="thirdRow" data-toggle="collapse" data-target="#extra_data_info3" class="selectRow accordion-toggle">
+								<td align="center"><h5>vessel3</h5></td>
+								<td align="center"><h5><span id="tempResponse3"></span><span id="tempResponseUnits3"> </span></h5></td>
+								<td align="center"><h5><span id="dutycycleResponse3"></span><span id="dutyCycleUnits3"> </span></h5></td>
+							</tr>
+							<tr>
+								<td colspan="3" class="hiddenRow" id="vessel3">
+								<div class="accordian-body collapse" id="extra_data_info3">
+
+									<div class="voffset15"></div>
+
+									Mode:<span id="modeResponse3" class="label label-default"></span>
+									<br>
+									Cycle Time(sec): <span id="cycletimeResponse3" class="label label-default"></span>
+									<br>
+									Set Point(<span id="setpointResponseUnits3"></span>): <span id="setpointResponse3" class="label label-default"></span>
+									<br>
+									Kc:<span id="k_paramResponse3" class="label label-default"></span>
+									Ti:<span id="i_paramResponse3" class="label label-default"></span>
+									Td:<span id="d_paramResponse3" class="label label-default"></span>
+									
+									<div class="voffset15"></div>
+
+								</div></td>
+							</tr>
+						</tbody>
+					</table>
+
+					<div class="voffset20"></div>
+
+					<fieldset class="border">
+
+						<legend class="border">
+							PID Control Panel
+						</legend>
+
+						<div class="voffset10"></div>
+
+						<form id="controlPanelForm" method="post" class="form-horizontal" role="form">
+
+							<div class="row">
+								<div class="form-group">
+									<div class="btn-group col-sm-offset-1" data-toggle="buttons">
+										
+										<label class="btn btn-primary">
+											<input type="radio" name="mode" id="auto" value="auto">
+											Auto </label>
+										<label class="btn btn-primary">
+											<input type="radio" name="mode" id="manual" value="manual">
+											Manual </label>
+										<label class="btn btn-primary active">
+											<input type="radio" name="mode" id="off" value="off" checked>
+											Off </label>
+										<label class="btn btn-primary">
+											<input type="radio" name="mode" id="stopped" value="stopped">
+											Stopped</label>
+										<label class="btn btn-primary">
+											<input type="radio" name="mode" id="heating" value="heating">
+											Heating</label>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="form-group">
+									<label for="setpoint" class="col-xs-4 control-label">Set Point:</label>
+									<div class="input-group col-xs-4">
+										<input type="number" step="any" name="setpoint" class="form-control" id="setpoint" value={{set_point}}>
+										<span id="setpointInputUnits" class="input-group-addon"></span>
+									</div>
+									<div class="col-xs-4"></div>
+								</div>
+								<div class="form-group">
+									<label for="dutycycle" class="col-xs-4 control-label">Duty Cycle:</label>
+									<div class="input-group col-xs-4">
+										<input name="dutycycle" id="dutycycle" type="number" step="any" class="form-control" value={{duty_cycle}}>
+										<span class="input-group-addon">%</span>
+									</div>
+									<div class="col-xs-4"></div>
+								</div>
+								<div class="form-group">
+									<label for="cycletime" class="col-xs-4 control-label">Cycle Time:</label>
+									<div class="input-group col-xs-4">
+										<input name="cycletime" type="number" step="any" class="form-control" id="cycletime" value={{cycle_time}}>
+										<span class="input-group-addon">sec</span>
+									</div>
+									<div class="col-xs-4"></div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="form-inline">
+									<div class="col-xs-1"></div>
+									<div class="form-group col-xs-3">
+										<label for="kc_param" class="control-label">Kc:</label>
+										<div class="input-group">
+											<input name="k" type="number" step="any" class="form-control" id="kc_param" value={{k_param}}>
+										</div>
+									</div>
+									<div class="form-group col-xs-3">
+										<label for="ti_param" class="control-label">Ti:</label>
+										<div class="input-group">
+											<input name="i" type="number" step="any" class="form-control" id="ti_param" value={{i_param}}>
+										</div>
+									</div>
+									<div class="form-group col-xs-3">
+										<label for="td_param" class="control-label">Td:</label>
+										<div class="input-group">
+											<input name="d" type="number" step="any" class="form-control " id="td_param" value={{d_param}}>
+										</div>
+									</div>
+									<div class="col-xs-2"></div>
+
+								</div>
+							</div>
+
+							<div class="voffset20"></div>
+							<div class="row">
+								<div class="form-group">
+									<div class="col-xs-offset-3">
+										<button id = "sendcommand" type="submit" class="btn btn-info">
+											Send Command
+										</button>
+									</div>
+								</div>
+							</div>
+
+						</form>
+					</fieldset>
+
+				</div>
+				<div class="col-xs-7 hidden-xs">
+					<fieldset class="border">
+
+						<legend class="border">
+							Line Plots
+						</legend>
+						<div class="row">
+							<div class="ControlResponse" id="tempheatplots">
+								<div class="tempdata">
+									<p class="plottitle">
+										Temperature Plot
+									</p>
+									<div id="tempplot" align=left  style="width:500px;height:125px;"></div>
+									<p class="plottitle">
+										Heat Plot
+									</p>
+									<div id="heatplot" align=left  style="width:500px;height:125px;"></div>
+									<br/>
+									Window Size:
+									<input id="windowSizeText" type="text" name="windowSize"  maxlength = "6" size ="6" value=1000000 style="text-align: right;"/>
+									<br>
+
+									<button class="btn btn-default" id = "stop">
+										Stop Capture
+									</button>
+									<button class="btn btn-default" id = "restart">
+										Restart Capture
+									</button>
+									<!-- <button id = "calcpid">Calculate PID</button> -->
+
+								</div>
+							</div>
+					</fieldset>
+				</div>
+				<div class="row">
+					<fieldset class="border">
+
+						<legend class="border">
+							GPIO Control Panel
+						</legend>
+
+						<div class="voffset15"></div>
+
+						<label id="GPIO_label1" class="switch-light well col-xs-3" onclick="">
+							<input id="GPIO1" type="checkbox">
+							<span>PUMP/STIR1:<span>Off</span> <span>On</span> </span> <a id="GPIO_Color1" class="btn btn-danger"></a> </label>
+
+						<label id="GPIO_label2" class="switch-light well col-xs-3" onclick="">
+							<input id="GPIO2" type="checkbox">
+							<span>&nbsp&nbspPUMP/STIR2:&nbsp&nbsp<span>Off</span> <span>On</span> </span> <a id="GPIO_Color2" class="btn btn-danger"></a> </label>
+
+					</fieldset>
+				</div>
+
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-xs-4">
+
+<button type="button" ng-click="showmore = (showmore !=null && showmore) ? false : true;" class="btn float-right" data-toggle="collapse" data-target="#moreoptions">
+            <span class="glyphicon" ng-class="showmore ? 'glyphicon-collapse-up': 'glyphicon-collapse-down'"></span>
+            Show/Hide herbs
+        </button>
+<div id="moreoptions" class="collapse">
+ setpoint:35, time: <br/>
+harvest herbs for drying just before their flowers open, early morning
+Clean the herbs if needed
+Wash the herbs gently. Use the least amount of water possible to avoid crushing or bruising the herb
+Lay a clean tea towel out flat on a suitable surface.
+Lay each herb stem/stalk or sprig on the tea towel. 
+http://www.motherearthnews.com/real-food/drying/drying-herbs-zm0z13fmzmat.aspx
+http://www.wikihow.com/Dry-Herbs
+</div>
+<br/>
+<button type="button" ng-click="showmore = (showmore !=null && showmore) ? false : true;" class="btn float-right" data-toggle="collapse" data-target="#moreoptions1">
+            <span class="glyphicon" ng-class="showmore ? 'glyphicon-collapse-up': 'glyphicon-collapse-down'"></span>
+            Show/Hide Raising Bread
+        </button>
+
+<div id="moreoptions1" class="collapse">
+setpoint :37C (98.6 F, time:90 
+The important thing is knowing the temperature and, if you're really particular, the humidity in the air around  your proof. This information is used for the sake of timing consistency, more than anything else.
+</h3>
+</div>
+
+<br/>
+<button type="button" ng-click="showmore = (showmore !=null && showmore) ? false : true;" class="btn float-right" data-toggle="collapse" data-target="#moreoptions2">
+            <span class="glyphicon" ng-class="showmore ? 'glyphicon-collapse-up': 'glyphicon-collapse-down'"></span>
+            Show/HideMaking Yougurt
+        </button>
+
+<div id="moreoptions2" class="collapse">Your Panel</div>
+
+<br/>
+<button type="button" ng-click="showmore = (showmore !=null && showmore) ? false : true;" class="btn float-right" data-toggle="collapse" data-target="#moreoptions3">
+            <span class="glyphicon" ng-class="showmore ? 'glyphicon-collapse-up': 'glyphicon-collapse-down'"></span>
+             Show/Hide Making Yougurt
+        </button>
+
+<div id="moreoptions3" class="collapse"> setpoint:40, drying time:4333
+http://nchfp.uga.edu/publications/nchfp/factsheets/yogurt.html
+-Pasteurization for any non-commercial milk.
+-Combine ingredients (milk+dry milk) and heat 10-20min.
+-Cool and inoculate.
+to cool milk rapidly to 112-115°F. Remove one cup of the warm milk and blend it with the yogurt starter culture. Add this to the rest of the warm milk. The temperature of the mixture should now be 110-112°F.
+-Incubate.
+Pour immediately into clean, warm container(s); cover and place in prepared incubator. Close the incubator and incubate about 4 - 7 hours at 110°F ± 5°F.
+ -Refrigerate. 
+Rapid cooling stops the development of acid. Yogurt will keep for about 10-21 days if held in the refrigerator at 40°F or lower.
+</div>
+<br/>
+<button type="button" ng-click="showmore = (showmore !=null && showmore) ? false : true;" class="btn float-right" data-toggle="collapse" data-target="#moreoptions4">
+            <span class="glyphicon" ng-class="showmore ? 'glyphicon-collapse-up': 'glyphicon-collapse-down'"></span>
+             Show/Hide Making Vegetable
+        </button>
+
+<div id="moreoptions4" class="collapse"> setpoint:40, drying time:4333
+
+</div>
+<br/>
+<button type="button" ng-click="showmore = (showmore !=null && showmore) ? false : true;" class="btn float-right" data-toggle="collapse" data-target="#moreoptions5">
+            <span class="glyphicon" ng-class="showmore ? 'glyphicon-collapse-up': 'glyphicon-collapse-down'"></span>
+             Show/Hide Making Fruit leather        </button>
+
+<div id="moreoptions5" class="collapse">setpoint :42, time:420min
+mode:off|auto|stopped|heating|manual
+cycle_time: heating time in sek 
+duty_cycle_temp: temp duty cycle (%)  
+dry_time: time in min to dehydrating, depends from material (420 min)   
+dry_duty_cycle: power to dehydrating, depends from material (60 %)   
+k_param: proportional, pemik
+i_param: integral (how quick) 
+d_para: diferencial 
+set_point: temperature setting (32) 
+dry_manage_temp: temperature setting (32) 
+num_pnts_smooth: points to calculate moving average (5) 
+sleep: time between  s3 & iot publishing (60 sek)
+RootDir:Where the RasPiDry will be served from (/var/www/)
+Template:Place templates (themes) in templates folder.The static folder must contain the corresponding css and js files raspidry.html or raspidry_bootstrap.html
+Use_LCD:Use LCD - yes or no
+GPIO_pin_numbering_scheme:GPIO pin numbering scheme-choose BOARD or BCM. If something else than these are given, BCM is chosen as default.
+Temp_Sensor_Id:Temperature Sensor Id forI2C (28-0000037eb5c0,28-0000037ec2b1). 
+For Temp Control the Temp_Sensor_Id must have a corresponding GPIO Pin used for heat, otherwise the temperature sensor is only for temp readout
+Currently limited to 3 temp sensors but that can easily be expanded in raspibrew.py.Repeat same element names (Temp_Sensor_Id and optional Heat_Pin) for additional temp sensors
+GPIO_Pin:Repeat <GPIO_Pin> element name 18,19. Up to 2 GPIO pins are supported but can easily be expanded in code
+Heat_Pin: heater pin (21,22)
+Temp_Sensor:DHT22
+Fan_Pin:23
+Temp_Pin:4
+GPIO_Inverted: If your relay board work inverted mode set to 1, else 0
+Temp_Units: Units C (Celsius) or F (Fahrenheit) 
+</div>
+<br/>
+<button type="button" ng-click="showmore = (showmore !=null && showmore) ? false : true;" class="btn float-right" data-toggle="collapse" data-target="#moreoptions6">
+            <span class="glyphicon" ng-class="showmore ? 'glyphicon-collapse-up': 'glyphicon-collapse-down'"></span>
+             Show/Hide Making Vegetablet
+        </button>
+
+<div id="moreoptions6" class="collapse"> setpoint:40, drying time:4333
+
+</div>
+
+			</div>
+
+		</div>
+		<!-- row -->
+
+		</div><!-- /.container -->
+<div>
+
+</div>
+<div id='plotContainer' style="width:100%; height:500px;align="center">
+<iframe src="http://iothome.s3.amazonaws.com/plot.html" width="100%" height="600" frameborder="0"></iframe>
+</div>
+
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<div id='sheetContainer' style="width:100%; height:500px;align="center">
+<iframe src="http://iothome.s3.amazonaws.com/DHT.html" width="100%" height="800" frameborder="0"></iframe>
+</div>
+
+
+		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+		<script type="text/javascript" src="static/external/jquery-2.0.3/jquery-2.0.3.min.js"></script>
+		<!-- Include all compiled plugins (below), or include individual files as needed -->
+		<script type="text/javascript" src="static/external/bootstrap-3.0.3/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="static/external/flot-0.8.2/jquery.flot.js"></script>
+		<script type="text/javascript" src="static/external/flot-0.8.2/jquery.flot.selection.js"></script>
+		<script type="text/javascript" src="static/raspidry_bootstrap.js"></script>
+
+<script>
+window.setInterval("reloadIFrame();", 180);
+function reloadIFrame() {
+ document.getElementById("plotContainer").src="http://iothome.s3.amazonaws.com/plot.html";
+ document.getElementById("sheetContainer").src="http://iothome.s3.amazonaws.com/DHT.html";
+
+}
+</script>
+
+	</body>
+</html>

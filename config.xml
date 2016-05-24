@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="ISO-8859-1"?>
+<Config>
+	<!-- Where the RasPiDry will be served from -->
+	<RootDir>/var/www/</RootDir>
+	<!-- Place templates (themes) in templates folder -->
+	<!-- The static folder must contain the corresponding css and js files -->
+	<Template>raspidry_bootstrap_test.html</Template>
+	<!--Template>raspidry.html</Template-->
+	<!-- Use LCD - yes or no-->
+	<Use_LCD>no</Use_LCD>
+	<!-- GPIO pin numbering scheme-choose BOARD or BCM. If something else than these are given, BCM is chosen as default. -->
+	<GPIO_pin_numbering_scheme>BCM</GPIO_pin_numbering_scheme>
+	<!-- Temperature Sensor Id -->
+	<!-- For Temp Control the Temp_Sensor_Id must have a corresponding GPIO Pin used -->
+	<!-- for heat, otherwise the temperature sensor is only for temp readout -->
+	<!-- Repeat same element names (Temp_Sensor_Id and optional Heat_Pin) for additional temp sensors -->
+	<!-- Currently limited to 3 temp sensors but that can easily be expanded in raspibrew.py -->
+	<!--Temp_Sensor_Id>28-0000037eb5c0</Temp_Sensor_Id-->
+	<!--Temp_Sensor_Id>28-0000037ec2b1</Temp_Sensor_Id-->	
+	<!-- Up to 2 GPIO pins are supported but can easily be expanded in code-->
+	<!-- Repeat <GPIO_Pin> element name>
+	<GPIO_Pin>18</GPIO_Pin>
+	<GPIO_Pin>19</GPIO_Pin-->
+
+	<Heat_Pin>21</Heat_Pin>
+	<Heat_Pin>22</Heat_Pin>
+	<Temp_Sensor>DHT22</Temp_Sensor>
+	<Fan_Pin>23</Fan_Pin>
+	<Temp_Pin>4</Temp_Pin>
+	<!--Fan_Pin>24</Fan_Pin-->
+	<!-- If your relay board work inverted mode set to 1 -->
+	<GPIO_Inverted>0</GPIO_Inverted>
+
+	<!-- Units C (Celsius) or F (Fahrenheit) -->
+	<!-- Note: Default is F for Android app which can switch between F and C-->
+	<Temp_Units>C</Temp_Units>
+	<!--mode>off|dry|auto</mode-->
+	<!--mode>stopped|heating|auto|manual</mode-->
+	<mode>stopped</mode>
+
+  <options name="herbs"          id="1" setpoint ="35" ends="333">  1</options>
+  <!--options name="Raising Bread"  id="2" setpoint ="26" ends="633">  2</options>
+  <options name="Making Yougurt" id="3" setpoint ="85,43,38" ends="4-7h">  3</options> 
+  <options name="Vegetable"      id="4" setpoint ="40" ends="4333"> 4</options> 
+  <options name="Fruit leather"  id="5" setpoint ="42" ends="3333"> 5</options> 
+  <options name="Fruit"          id="6" setpoint ="48" ends="4333"> 6</options-->
+
+        <!-- time between  s3 & iot publishing-->
+        <sleep>120</sleep>
+        <!-- cycle time - sek-->
+        <cycle_time>2.0</cycle_time>
+        <!-- power cycle  %-->
+        <!--dry_time>min</dry_time-->
+        <dry_time>7</dry_time>
+        <!--dry_duty_cycle>%</dry_duty_cycle-->
+        <dry_duty_cycle>50</dry_duty_cycle>
+        <set_point>42</set_point>
+        <dry_manage_temp>42</dry_manage_temp>
+        <num_pnts_smooth>5</num_pnts_smooth>
+        <k_param>4</k_param>
+        <i_param>3</i_param>
+        <d_param>3</d_param>   
+        <!--cert>f03f954dd6-</cert> 
+        <thing>FoodDehydratorTemperatureStatus</thing>
+        <thing>FoodDehydratorTemperatureControl</thing-->
+         <filename>DHT</filename> 
+        <Bucketname>iothome</Bucketname> 
+</Config>
