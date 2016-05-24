@@ -2,7 +2,7 @@
 
 ## Raspberry Pi Dehydrator Controller for drying Fruit, Fruit leather, Vegetables, Yoghurt making, Raising Bread 
 
-This system is an inexpensive and flexible wireless  Web or IOT (internet of things) based controller for drying Fruit, Fruit leather, Vegetables, Yoghurt making and Raising Bread.  You can use your own homemade or some commercial dehydrator. The system is connected to Amazon cloud using AWS internet of things to smart control. It's based on https://github.com/aaronagultosite/RasPiBrew project.
+This system is an inexpensive and flexible wireless  Web or IOT (internet of things) based controller for drying Fruit, Fruit leather, Vegetables, Yoghurt making and Raising Bread.  You can use your own homemade or some commercial dehydrator. The system is connected to Amazon cloud using AWS internet of things to smart control. It's based on https://github.com/steve71/RasPiBrew project.
 
 
 This program will control an electric heating element in a dehydrator to set the air temperature.  All status included temperature, humidity is logged localy to file  in CSV format to display on web  browser or android device wirelessly approx. every fwe seconds (sleep time).   The duty cycle and temperature is plotted in real time.  A Type C PID algorithm has been successfully implemented to automatically control the heating element when the desired temperature is set.  CSV  is transformed to  JSON file and both send to AWS S3 to display  temperature, humidity, weight diagram and spreadsheet for analytical purpose.  Status is also logged to AWS IOT to display on Android device and to control dehydrator by Android device. So there no need to run web server on Raspberry PI.
